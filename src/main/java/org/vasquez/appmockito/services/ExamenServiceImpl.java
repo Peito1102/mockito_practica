@@ -13,13 +13,8 @@ public class ExamenServiceImpl implements ExamenService{
     }
 
     @Override
-    public Examen findExamenPorNombre(String nombre) {
-        Optional<Examen> examenOptional = examenRepository.findAll().stream().filter(
+    public Optional<Examen> findExamenPorNombre(String nombre) {
+        return examenRepository.findAll().stream().filter(
                 n -> n.getNonbre().equals(nombre)).findFirst();
-        Examen examen = null;
-        if (examenOptional.isPresent()) {
-            examen = examenOptional.orElseThrow();
-        }
-        return examen;
     }
 }

@@ -37,4 +37,13 @@ public class Examen {
     public void setPreguntas(List<String> preguntas) {
         this.preguntas = preguntas;
     }
+
+    @Override
+    public String toString() {
+        return "Examen{" +
+                "id=" + id +
+                ", nonbre='" + nonbre + '\'' +
+                ", preguntas=" + preguntas +
+                '}';
+    }
 }
