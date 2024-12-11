@@ -51,4 +51,27 @@ class ExamenRepositoryImplTest {
         assertEquals(5,examen.getPreguntas().size());
         assertTrue(examen.getPreguntas().contains("aritmetica"));
     }
+
+    @Test
+    void testPreguntasVerify() {
+        when(repository.findAll()).thenReturn(Datos.EXAMENES);
+        when(preguntaRepository.findPreguntasPorExamenId(anyLong())).thenReturn(Datos.PREGUNTAS);
+        Examen examen = service.findExamenPorNombreConPreguntas("Matemáticas");
+        assertEquals(5,examen.getPreguntas().size());
+        assertTrue(examen.getPreguntas().contains("aritmetica"));
+        verify(repository).findAll(); //verifica que el metodo sea usado
+        verify(preguntaRepository).findPreguntasPorExamenId(4L);
+    }
+
+    @Test
+    void testNoExisteExamenVerify() {
+        when(repository.findAll()).thenReturn(Collections.emptyList());
+        when(preguntaRepository.findPreguntasPorExamenId(anyLong())).thenReturn(Datos.PREGUNTAS);
+        Examen examen = service.findExamenPorNombreConPreguntas("Matemáticas");
+        assertNull(examen);
+        verify(repository).findAll(); //verifica que el metodo sea usado
+        verify(preguntaRepository).findPreguntasPorExamenId(5L);
+    }
+
+
 }
