@@ -3,6 +3,12 @@ package org.vasquez.appmockito.repositories;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
+
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.vasquez.appmockito.models.Examen;
 import org.vasquez.appmockito.services.ExamenService;
 import org.vasquez.appmockito.services.ExamenServiceImpl;
@@ -11,16 +17,22 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class ExamenRepositoryImplTest {
+    @Mock
     ExamenRepository repository;
-    ExamenService service;
+    @Mock
     PreguntaRepository preguntaRepository;
+    @InjectMocks
+    ExamenServiceImpl service;
+
 
     @BeforeEach
     void setUp() {
-        repository = mock(ExamenRepositoryOtro.class);
-        preguntaRepository = mock(PreguntaRepository.class);
-        service = new ExamenServiceImpl(repository,preguntaRepository);
+        //MockitoAnnotations.openMocks(this);
+        //repository = mock(ExamenRepositoryOtro.class);
+        //preguntaRepository = mock(PreguntaRepository.class);
+        //service = new ExamenServiceImpl(repository,preguntaRepository);
     }
 
     @Test
@@ -73,5 +85,8 @@ class ExamenRepositoryImplTest {
         verify(preguntaRepository).findPreguntasPorExamenId(5L);
     }
 
-
+    @Test
+    void testGuardarExamen() {
+        when(repository.guardar(any(Examen.class))).thenReturn();
+    }
 }
